@@ -2045,6 +2045,7 @@ body:has(#authScreen.active) {
 @media (max-width: 700px) {
   body { padding: 12px; }
   .app-shell { min-height: calc(100vh - 24px); }
+  .feed-shell { grid-template-columns: minmax(0, 1fr); }
   .topbar {
     align-items: flex-start;
     flex-wrap: wrap;
@@ -2052,13 +2053,23 @@ body:has(#authScreen.active) {
   }
   .app-nav {
     order: 3;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
-    justify-content: space-between;
+    gap: 6px;
   }
   .nav-button {
-    flex: 1;
+    min-width: 0;
+    flex-direction: column;
     justify-content: center;
-    padding: 10px 7px;
+    gap: 4px;
+    padding: 8px 4px;
+  }
+  .nav-button span:not(.notification-badge) {
+    min-width: 0;
+    font-size: 0.75rem;
+    text-align: center;
+    overflow-wrap: anywhere;
   }
   .view-panel { padding: 18px; }
   .chat-area { padding: 18px 18px 0; }
