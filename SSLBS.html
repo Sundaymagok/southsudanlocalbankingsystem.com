@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>www.southsudanlocalbakingsystem.com</title>
+    <link rel="icon" type="image/png" href="sslbs-icon.png" />
+    <meta name="theme-color" content="#081521" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <img class="brand-logo" src="sslbs-icon.png" alt="" />
+          <span>SSLBS Community</span>
+        </div>
+
+        <div class="side-panel">
+          <div class="panel-label">Community</div>
+          <div class="user-list" id="userList"></div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="welcome">
+            <h1 id="welcomeName">Welcome</h1>
+            <p id="welcomeText">Join the conversation.</p>
+          </div>
+          <nav class="app-nav hidden" id="appNav" aria-label="Main navigation">
+            <button class="nav-button active" type="button" data-view="home" aria-current="page">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"></path><path d="M5 9v12h14V9"></path><path d="M9 21v-7h6v7"></path></svg>
+              <span>Home</span>
+            </button>
+            <button class="nav-button" type="button" data-view="timeline">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path><circle cx="7" cy="5" r="1"></circle><circle cx="7" cy="12" r="1"></circle><circle cx="7" cy="19" r="1"></circle></svg>
+              <span>Timeline</span>
+            </button>
+            <button class="nav-button" type="button" data-view="notifications">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
+              <span>Notifications</span>
+              <span class="notification-badge hidden" id="notificationBadge" aria-label="Unread notifications">0</span>
+            </button>
+            <button class="nav-button" type="button" data-view="branchInvitations">
+              <span>Branch Union</span>
+            </button>
+            <button class="nav-button settings-nav-button" type="button" data-view="settings" aria-label="Settings" title="Settings">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.7 2.94-.08-.02a1.7 1.7 0 0 0-1.74.9l-.04.08h-3.4l-.04-.08a1.7 1.7 0 0 0-1.74-.9l-.08.02-1.7-2.94.06-.06A1.7 1.7 0 0 0 9.6 15l-.08-.04v-3.4l.08-.04a1.7 1.7 0 0 0 .9-1.74l-.02-.08 2.94-1.7.06.06a1.7 1.7 0 0 0 1.88.34l.04-.08h3.4l.04.08a1.7 1.7 0 0 0 1.74.9l.08-.02 1.7 2.94-.06.06A1.7 1.7 0 0 0 20 14.2l-.08.04v3.4Z"></path></svg>
+            </button>
+          </nav>
+          <button class="logout-button" id="logoutBtn">Log out</button>
+        </header>
+
+        <section id="authScreen" class="screen active auth-screen">
+          <div class="auth-card">
+            <div class="auth-tabs">
+              <button type="button" class="tab active" data-mode="signup">Sign up</button>
+              <button type="button" class="tab" data-mode="login">Log in</button>
+            </div>
+
+            <form id="signupForm" class="form-grid">
+              <h2>Create your account</h2>
+              <p>WELCOME TO SOUTH SUDAN LOCAL BANKING SYSTEM</p>
+              <p>Start messaging with your community.</p>
+              <p id="registrationClosedNotice" class="registration-closed-notice hidden" aria-live="polite">New account registration is currently closed.</p>
+
+              <div class="field">
+                <label for="signupName">Full name</label>
+                <input id="signupName" type="text" placeholder="Enter your name" required />
+              </div>
+
+              <div class="field">
+                <label for="signupEmail">Email</label>
+                <input id="signupEmail" type="email" placeholder="you@gmail.com" pattern=".+@gmail\.com" title="Use an email address ending in @gmail.com." required />
+                <small class="field-hint">Use a real @gmail.com address. This standalone page does not verify inbox ownership.</small>
+              </div>
+
+              <div class="signup-bank-fields">
+                <div class="field">
+                  <label for="signupBankName">Bank name</label>
+                  <input id="signupBankName" type="text" maxlength="100" placeholder="Enter your bank's full name" required />
+                </div>
+                <div class="field">
+                  <label for="signupBankLocation">Bank location</label>
+                  <input id="signupBankLocation" type="text" maxlength="120" placeholder="City or town, state" required />
+                </div>
+                <div class="field">
+                  <label for="signupBankLogo">Bank logo</label>
+                  <input id="signupBankLogo" type="file" accept="image/*" />
+                  <small class="field-hint">Optional image, up to 1 MB.</small>
+                  <img id="signupLogoPreview" class="signup-logo-preview hidden" alt="Bank logo preview" />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="signupPassword">Password</label>
+                <input id="signupPassword" type="password" placeholder="Create a password" required />
+              </div>
+
+              <button class="submit-btn" type="submit">Create account</button>
+              <p class="auth-switch">Already have an account? <button type="button" id="showLoginFromSignup">Log in</button></p>
+            </form>
+
+            <form id="loginForm" class="form-grid hidden">
+              <h2>Welcome back</h2>
+              <p>Log in and continue the conversation.</p>
+
+              <div class="field">
+                <label for="loginEmail">Email</label>
+                <input id="loginEmail" type="email" placeholder="you@example.com" required />
+              </div>
+
+              <div class="field">
+                <label for="loginPassword">Password</label>
+                <input id="loginPassword" type="password" placeholder="Your password" required />
+              </div>
+
+              <button class="submit-btn" type="submit">Log in</button>
+              <button class="account-recover-button" id="recoverAccountButton" type="button">Recover account</button>
+            </form>
+
+            <div class="demo">Demo account: admin@sslbs.com / admin123</div>
+          </div>
+        </section>
+
+        <section id="chatScreen" class="screen chat-screen">
+          <div class="app-content">
+            <section class="view-panel" id="homeView" aria-labelledby="homeHeading">
+              <div class="feed-shell">
+                <div class="home-feed-card">
+                  <h2 id="homeHeading">Home</h2>
+                  <form id="homePostForm" class="home-post-form">
+                    <div class="field form-wide">
+                      <label for="homePostText">What's on your mind?</label>
+                      <textarea id="homePostText" maxlength="1200" placeholder="Share what's happening at your bank..."></textarea>
+                    </div>
+                    <div class="field form-wide">
+                      <label for="homePostImage">Upload a picture (optional, up to 1 MB)</label>
+                      <input id="homePostImage" type="file" accept="image/*" />
+                    </div>
+                    <button class="home-post-submit form-wide" type="submit">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"></path></svg>
+                      Post to timeline
+                    </button>
+                  </form>
+                  <div id="homeFeedPosts" class="timeline-layout" aria-live="polite"></div>
+                </div>
+                <aside class="home-side-panel">
+                  <div class="home-card">
+                    <h3>Branch Union</h3>
+                    <div id="branchRequestList" class="branch-request-list" aria-live="polite"></div>
+                  </div>
+                  <div class="home-card">
+                    <h3>Quick tools</h3>
+                    <div class="home-actions">
+                      <button type="button" data-go-view="notifications">View updates</button>
+                      <button type="button" data-go-view="messages">
+                        Open messages
+                        <span class="notification-badge hidden" id="messageBadge" aria-label="Unread messages">0</span>
+                      </button>
+                      <button type="button" class="history-open-button" id="activityHistoryToggle" aria-expanded="false" aria-controls="activityHistoryPanel">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l3 2"></path></svg>
+                        Activity history
+                      </button>
+                    </div>
+                    <form id="bankSearchForm" class="bank-search-form">
+                      <input id="bankSearchInput" type="search" maxlength="100" placeholder="Search by bank name..." aria-label="Search banks by name" required />
+                      <button type="submit" aria-label="Search">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+                        Search
+                      </button>
+                    </form>
+                    <div id="bankSearchResults" class="bank-search-results" aria-live="polite"></div>
+                    <section id="bankProfile" class="bank-profile hidden" aria-live="polite"></section>
+                  </div>
+                  <div class="home-card">
+                    <h3>Latest updates</h3>
+                    <div id="homeUpdateList" class="update-list"></div>
+                  </div>
+                  <section id="activityHistoryPanel" class="activity-history-panel hidden" aria-labelledby="activityHistoryHeading">
+                    <div class="activity-history-header">
+                      <h3 id="activityHistoryHeading">All transfer activity</h3>
+                      <button id="closeActivityHistory" class="profile-back" type="button">Close history</button>
+                    </div>
+                    <div id="activityHistoryContent" aria-live="polite"></div>
+                  </section>
+                </aside>
+              </div>
+            </section>
+
+            <section class="view-panel hidden" id="notificationsView" aria-labelledby="notificationsHeading">
+              <div class="updates-card">
+                <h2 id="notificationsHeading">Notifications &amp; updates</h2>
+                <p>Updates posted by the page owner appear here.</p>
+                <form id="updateForm" class="update-form hidden">
+                  <div class="field">
+                    <label for="updateTitle">Update title</label>
+                    <input id="updateTitle" type="text" maxlength="100" placeholder="What's new?" required />
+                  </div>
+                  <div class="field">
+                    <label for="updateText">Details</label>
+                    <textarea id="updateText" maxlength="1000" placeholder="Share the change or announcement..." required></textarea>
+                  </div>
+                  <button class="update-submit" type="submit">Publish update</button>
+                </form>
+              </div>
+              <div id="updateList" class="update-list" aria-live="polite"></div>
+              <div class="updates-card">
+                <h2>Branch requests</h2>
+                <p>Accept a branch invitation here to connect. Connected banks can message and send SSP transfers.</p>
+                <div id="notificationBranchRequestList" class="branch-request-list" aria-live="polite"></div>
+              </div>
+            </section>
+
+            <section class="view-panel hidden" id="branchInvitationsView" aria-labelledby="branchInvitationsHeading">
+              <div class="updates-card">
+                <h2 id="branchInvitationsHeading">Branch Union</h2>
+                <p>Review invitations and manage your connected branches.</p>
+                <div id="mainBranchInvitationList" class="branch-request-list" aria-live="polite"></div>
+              </div>
+            </section>
+
+            <section class="view-panel hidden" id="timelineView" aria-labelledby="timelinePageHeading">
+              <div class="timeline-layout">
+                <div class="bank-profile-card">
+                  <h2 id="bankProfileHeading">Bank profile</h2>
+                  <p id="customerCountText"></p>
+                  <form id="bankProfileForm" class="bank-profile-form">
+                    <div class="field">
+                      <label for="bankNameInput">Full bank name</label>
+                      <input id="bankNameInput" type="text" maxlength="100" required />
+                    </div>
+                    <div class="field">
+                      <label for="bankLocationInput">Public location</label>
+                      <input id="bankLocationInput" type="text" maxlength="120" placeholder="City or town, state" />
+                    </div>
+                    <div class="field">
+                      <label for="bankPhoneInput">Phone number</label>
+                      <input id="bankPhoneInput" type="tel" maxlength="40" placeholder="+211 912 345 678" />
+                    </div>
+                    <div class="field">
+                      <label for="bankWebsiteInput">Website</label>
+                      <input id="bankWebsiteInput" type="url" maxlength="200" placeholder="https://example.com" />
+                    </div>
+                    <div class="field form-wide">
+                      <label for="bankAddressInput">Address</label>
+                      <input id="bankAddressInput" type="text" maxlength="200" placeholder="Street, city, state, country" />
+                    </div>
+                    <div class="field form-wide">
+                      <label for="bankAboutInput">About</label>
+                      <textarea id="bankAboutInput" maxlength="500" placeholder="Share a short description of your bank, services, and community..."></textarea>
+                    </div>
+                    <div class="field">
+                      <label for="dailyCustomersInput">Customers served today</label>
+                      <input id="dailyCustomersInput" type="number" min="0" step="1" required />
+                    </div>
+                    <button class="profile-submit" type="submit">Update profile</button>
+                  </form>
+                </div>
+                <div class="timeline-card">
+                  <h2 id="timelinePageHeading">Share your bank's status</h2>
+                  <p>Post a photo and share what's on your mind with other banks.</p>
+                  <form id="postForm" class="post-form">
+                    <div class="field form-wide">
+                      <label for="postText">What's on your mind?</label>
+                      <textarea id="postText" maxlength="1200" placeholder="Share news, services, or today's status..."></textarea>
+                    </div>
+                    <div class="field form-wide">
+                      <label for="postImage">Upload a picture (optional, up to 1 MB)</label>
+                      <input id="postImage" type="file" accept="image/*" />
+                    </div>
+                    <button class="post-submit form-wide" type="submit">＋ Post to timeline</button>
+                  </form>
+                </div>
+                <div id="timelinePosts" class="timeline-layout" aria-live="polite"></div>
+              </div>
+            </section>
+
+            <section class="view-panel hidden" id="settingsView" aria-labelledby="settingsHeading">
+              <div class="timeline-layout">
+                <section class="timeline-card">
+                  <h2 id="settingsHeading">Profile settings</h2>
+                  <form id="settingsProfileForm" class="settings-profile-form">
+                    <div class="field">
+                      <label for="settingsFirstName">First name</label>
+                      <input id="settingsFirstName" type="text" maxlength="70" required />
+                    </div>
+                    <div class="field">
+                      <label for="settingsSecondName">Second name</label>
+                      <input id="settingsSecondName" type="text" maxlength="70" required />
+                    </div>
+                    <div class="field form-wide">
+                      <label for="settingsBankName">Bank name</label>
+                      <input id="settingsBankName" type="text" maxlength="100" required />
+                    </div>
+                    <div class="field">
+                      <label for="settingsBankLocation">Bank location</label>
+                      <input id="settingsBankLocation" type="text" maxlength="120" placeholder="City or town, state" />
+                    </div>
+                    <div class="field">
+                      <label for="settingsBankPhone">Phone number</label>
+                      <input id="settingsBankPhone" type="tel" maxlength="40" placeholder="+211 912 345 678" />
+                    </div>
+                    <div class="field form-wide">
+                      <label for="settingsBankAddress">Address</label>
+                      <input id="settingsBankAddress" type="text" maxlength="200" placeholder="Street, city, state, country" />
+                    </div>
+                    <div class="field form-wide">
+                      <label for="settingsBankWebsite">Website</label>
+                      <input id="settingsBankWebsite" type="url" maxlength="200" placeholder="https://example.com" />
+                    </div>
+                    <div class="field form-wide">
+                      <label for="settingsBankAbout">About</label>
+                      <textarea id="settingsBankAbout" maxlength="500" placeholder="Tell people about your bank, community, and services..."></textarea>
+                    </div>
+                    <div class="field form-wide">
+                      <label for="settingsBankLogo">Bank logo</label>
+                      <input id="settingsBankLogo" type="file" accept="image/*" />
+                      <small class="field-hint">Optional image, up to 1 MB.</small>
+                      <img id="settingsLogoPreview" class="settings-logo-preview hidden" alt="Bank logo preview" />
+                    </div>
+                    <div class="field form-wide">
+                      <label>Bank cover</label>
+                      <p class="field-hint">All bank profiles use the shared sign-up wallpaper as their cover photo.</p>
+                    </div>
+                    <button class="profile-submit form-wide" type="submit">Save profile</button>
+                  </form>
+                  <p id="settingsSaveStatus" class="field-hint" aria-live="polite"></p>
+                  <section class="account-danger-zone" aria-labelledby="accountActionsHeading">
+                    <h3 id="accountActionsHeading">Account</h3>
+                    <p>Deleting your account signs you out. You can recover it later with your email and password.</p>
+                    <label class="field" for="deleteAccountPassword">Confirm your password</label>
+                    <input id="deleteAccountPassword" type="password" autocomplete="current-password" />
+                    <label class="account-delete-confirm">
+                      <input id="deleteAccountConfirm" type="checkbox" />
+                      I understand this will sign me out.
+                    </label>
+                    <button id="deleteAccountButton" type="button">Delete account</button>
+                  </section>
+                </section>
+                <section id="adminSettingsPanel" class="timeline-card hidden" aria-labelledby="accountAccessHeading">
+                  <h2 id="accountAccessHeading">Account access</h2>
+                  <label class="registration-toggle" for="registrationOpenToggle">
+                    <input id="registrationOpenToggle" type="checkbox" />
+                    Allow new account registrations
+                  </label>
+                  <div id="accountManagementList" class="account-management-list" aria-live="polite"></div>
+                  <h3>Deleted accounts</h3>
+                  <div id="deletedAccountManagementList" class="account-management-list" aria-live="polite"></div>
+                </section>
+              </div>
+            </section>
+
+            <section class="view-panel direct-chat-view hidden" id="directChatView" aria-label="Direct conversation">
+              <div id="directMessagePanel" class="direct-message-panel hidden"></div>
+            </section>
+
+            <section class="view-panel messages-view hidden" id="messagesView" aria-label="Community messages">
+              <nav class="message-tabs" aria-label="Messages tools">
+                <button class="section-tab active" type="button" data-message-section="transfer">💸 Transfers</button>
+                <button class="section-tab" type="button" data-message-section="history">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l3 2"></path></svg>History
+                </button>
+                <button class="section-tab" type="button" data-message-section="chat">💬 Community chat</button>
+              </nav>
+
+              <section class="message-section" id="transferSection">
+                <div class="transfer-layout">
+                  <div class="transfer-card">
+                    <h2>Record a money transfer</h2>
+                    <form id="transferForm" class="transfer-form">
+                      <div class="field">
+                        <label for="transferDirection">Record as</label>
+                        <select id="transferDirection" required>
+                          <option value="sent">Sent by this bank</option>
+                          <option value="received">Received by this bank</option>
+                        </select>
+                      </div>
+                      <div class="field">
+                        <label for="transferAmount">Amount sent (SSP)</label>
+                        <input id="transferAmount" type="number" min="0.01" step="0.01" placeholder="Enter amount in SSP" required />
+                      </div>
+                      <div class="field">
+                        <label for="senderName">Sender's name</label>
+                        <input id="senderName" type="text" maxlength="100" placeholder="Full name of sender" required />
+                      </div>
+                      <div class="field">
+                        <label for="receiverName">Receiver's name</label>
+                        <input id="receiverName" type="text" maxlength="100" placeholder="Full name of receiver" required />
+                      </div>
+                      <div class="field">
+                        <label for="senderBank">Sender's bank</label>
+                        <input id="senderBank" type="text" maxlength="100" placeholder="Bank or financial institution" required />
+                      </div>
+                      <div class="field">
+                        <label for="receiverBank">Receiver's bank</label>
+                        <input id="receiverBank" type="text" maxlength="100" placeholder="Bank or financial institution" required />
+                      </div>
+                      <div class="field">
+                        <span>Calculated amount to receive (SSP)</span>
+                        <output id="receivedAmountPreview" class="calculated-amount">0 SSP</output>
+                      </div>
+                      <div class="field">
+                        <label for="transferMemo">Transfer message / reference</label>
+                        <input id="transferMemo" type="text" maxlength="300" placeholder="Optional note or reference" />
+                      </div>
+                      <button class="transfer-submit form-wide" type="submit">Save transfer</button>
+                    </form>
+                  </div>
+                  <div class="ledger-summary" aria-live="polite">
+                    <div class="summary-box"><span>Today's amount sent</span><strong id="todaySentTotal">0 SSP</strong></div>
+                    <div class="summary-box"><span>Today's amount received</span><strong id="todayReceivedTotal">0 SSP</strong></div>
+                  </div>
+                  <div class="history-card">
+                    <h2>Recent transfers</h2>
+                    <div id="recentTransferList"></div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="message-section hidden" id="historySection" aria-label="Transfer history">
+                <div class="history-tools">
+                  <div class="history-tabs" role="group" aria-label="History type">
+                    <button class="history-tab active" type="button" data-history-filter="sent">Sent</button>
+                    <button class="history-tab" type="button" data-history-filter="received">Received</button>
+                  </div>
+                  <input id="historySearch" class="history-search" type="search" placeholder="Search names, bank, date, or reference..." aria-label="Search transfer history" />
+                </div>
+                <div id="historyTableContainer"></div>
+              </section>
+
+              <div class="chat-area hidden" id="communityMessages">
+                <div id="messageList" class="message-list" aria-live="polite"></div>
+              </div>
+              <form id="messageForm" class="composer hidden">
+                <input id="messageInput" type="text" placeholder="Send a message..." maxlength="300" required />
+                <button class="send-btn" type="submit">Send</button>
+              </form>
+            </section>
+          </div>
+        </section>
+        <dialog class="detail-dialog" id="transferDetailDialog">
+          <h2>Transfer details</h2>
+          <div id="transferDetailContent"></div>
+          <button type="button" class="detail-close" id="closeTransferDetail">Close</button>
+        </dialog>
+        <dialog class="detail-dialog" id="sharePostDialog" aria-labelledby="sharePostHeading">
+          <h2 id="sharePostHeading">Share this post</h2>
+          <p class="share-note">Choose a platform. Instagram sharing depends on your device; download the photo from the post if needed.</p>
+          <div class="share-options">
+            <button class="share-option" type="button" data-share-platform="facebook">Facebook</button>
+            <button class="share-option" type="button" data-share-platform="x">X</button>
+            <button class="share-option" type="button" data-share-platform="instagram">Instagram</button>
+            <button class="share-option" type="button" data-share-platform="whatsapp">WhatsApp</button>
+          </div>
+          <button type="button" class="detail-close" id="closeSharePost">Close</button>
+        </dialog>
+        <dialog class="detail-dialog public-bank-dialog" id="publicBankProfileDialog" aria-labelledby="publicBankProfileName">
+          <div id="publicBankProfileContent"></div>
+          <button type="button" class="detail-close" id="closePublicBankProfile">Close</button>
+        </dialog>
+        <dialog class="detail-dialog" id="deleteAccountDialog" aria-labelledby="deleteAccountDialogHeading">
+          <h2 id="deleteAccountDialogHeading">Delete your account?</h2>
+          <p>Your account will be signed out and moved to deleted accounts. You can recover it later.</p>
+          <div class="delete-dialog-actions">
+            <button id="cancelAccountDeletion" type="button">Keep account</button>
+            <button id="confirmAccountDeletion" class="danger" type="button">Delete account</button>
+          </div>
+        </dialog>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
